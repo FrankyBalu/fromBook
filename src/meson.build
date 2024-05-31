@@ -3,6 +3,7 @@ MM_SOURCES = files (
     'GraphicalObject.cpp',
     'Log.cpp',
     'TextureManager.cpp',
+    'InputManager.cpp',
     #nur zum testen
     'Player.cpp',
     'include/Player.h',
@@ -16,7 +17,9 @@ MM_HEADERS = files (
     'include/GraphicalObject.h',
     'include/Log.h',
     'include/ObjectParams.h',
-    'include/TextureManager.h'
+    'include/TextureManager.h',
+    'include/Vector2D.h',
+    'include/InputManager.h'
 )
 
 ERIK_SOURCES = files (

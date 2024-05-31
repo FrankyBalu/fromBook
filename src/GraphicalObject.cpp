@@ -23,9 +23,7 @@
 #include "include/TextureManager.h"
 
 
-MM::GrapcicalObject::GrapcicalObject(const ObjectParams *params) :BaseObject(params){
-    m_x = params->getX();
-    m_y = params->getY();
+MM::GrapcicalObject::GrapcicalObject(const ObjectParams *params) :BaseObject(params), m_position(params->getX(), params->getY()), m_velocity(0,0), m_acceleration(0,0){
     m_width = params->getWidth();
     m_height = params->getHeight();
     m_textureID = params->getTextureID();
@@ -33,10 +31,12 @@ MM::GrapcicalObject::GrapcicalObject(const ObjectParams *params) :BaseObject(par
 
 
 void MM::GrapcicalObject::Draw(){
-    TextureManager::Instance()->DrawFrame(m_textureID, m_x, m_y, m_width, m_height, m_currentFrame, m_currentRow);
+    TextureManager::Instance()->DrawFrame(m_textureID, m_position.x, m_position.y, m_width, m_height, m_currentFrame, m_currentRow);
 }
 
 void MM::GrapcicalObject::Update(){
+    m_velocity += m_acceleration;
+    m_position += m_velocity;
 
 }
 

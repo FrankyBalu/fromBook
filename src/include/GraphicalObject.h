@@ -22,6 +22,7 @@
 
 #include "BaseObject.h"
 #include "ObjectParams.h"
+#include "Vector2D.h"
 
 namespace MM {
 
@@ -37,8 +38,9 @@ public:
 
 protected:
 
-    float m_x;
-    float m_y;
+    Vector2D m_position;
+    Vector2D m_velocity;
+    Vector2D m_acceleration;
     float m_width;
     float m_height;
 

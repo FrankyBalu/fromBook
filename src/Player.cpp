@@ -20,8 +20,7 @@
 #include "include/Player.h"
 #include "include/ObjectParams.h"
 #include "include/GraphicalObject.h"
-#include <raylib.h>
-
+#include "include/InputManager.h"
 
 MM::Player::Player(const ObjectParams *param) : GrapcicalObject(param){
 
@@ -32,14 +31,14 @@ void MM::Player::Draw(){
 }
 
 void MM::Player::Update(){
-    if (IsKeyDown(KEY_RIGHT))
-        m_x += 2;
-    if (IsKeyDown(KEY_LEFT))
-        m_x -= 2;
-    if (IsKeyDown(KEY_UP))
-        m_y -= 2;
-    if (IsKeyDown(KEY_DOWN))
-        m_y += 2;
+    if (IM::Instance()->IsKeyDown(KEY_RIGHT))
+        m_position.x += 2;
+    if (IM::Instance()->IsKeyDown(KEY_LEFT))
+        m_position.x -= 2;
+    if (IM::Instance()->IsKeyDown(KEY_UP))
+        m_position.y -= 2;
+    if (IM::Instance()->IsKeyDown(KEY_DOWN))
+        m_position.y += 2;
 }
 
 void MM::Player::Clean(){

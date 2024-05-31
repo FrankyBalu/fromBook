@@ -1,6 +1,7 @@
 build
 fromBook.kdev4
 .kdev4
+.cache
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
