@@ -17,23 +17,36 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __ENEMY
-#define __ENEMY
+#ifndef __MENUSCENE
+#define __MENUSCENE
 
-#include "GraphicalObject.h"
-#include "ObjectParams.h"
+#include "../src/include/BaseScene.h"
+
+#include <raylib.h>
 
 namespace MM {
 
-    class Enemy : public GrapcicalObject {
+    class MenuScene : public BaseScene {
     public:
-        Enemy(const ObjectParams *param);
-         virtual void Draw();
-         virtual void Update();
-         virtual void Input();
-         virtual void Clean();
-    };
+        virtual void Update();
+        virtual void Render();
 
+        virtual bool OnEnter();
+        virtual bool OnExit();
+
+        virtual std::string GetID() const {return s_menuID;}
+
+    private:
+
+        static const std::string s_menuID;
+
+        Rectangle m_LableMainMenu;
+        Rectangle m_ButtonPlay;
+        Rectangle m_ButtonExit;
+
+
+        int m_ActivButton;
+    };
 } //namespace MM
 
-#endif //__ENEMY
+#endif //__MENUSCENE

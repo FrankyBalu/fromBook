@@ -17,50 +17,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __GAME__
-#define __GAME__
+#ifndef __PLAYER
+#define __PLAYER
 
-#include <string>
-#include <vector>
-#include "BaseObject.h"
+#include "../src/include/GraphicalBaseObject.h"
+#include "../src/include/ObjectParams.h"
 
 namespace MM {
 
-class Game {
-public:
+    class Player : public GraphicalBaseObject {
+    public:
+        Player(const ObjectParams *param);
 
-    static Game* Instance(){
-        if(s_pInstance == nullptr){
-            s_pInstance = new Game();
-        }
-        return s_pInstance;
-    }
+         virtual void Draw();
+         virtual void Update();
+         virtual void Input();
+         virtual void Clean();
 
-    ~Game();
-
-    bool Init(std::string title);
-
-    void Render();
-    void Update();
-    void HandleEvents();
-    void Clean();
-
-    bool Running();
-
-    float GetWidth(){return 800;}
-    float GetHeight() {return 600;}
-
-    void Shutdown(){m_Running = false;}
-private:
-
-    static Game* s_pInstance;
-
-    bool m_Running;
-
-    Game();
-
-};
+    private:
+         int m_FrameCount;
+    };
 
 } //namespace MM
 
-#endif // __GAME__
+#endif //__PLAYER

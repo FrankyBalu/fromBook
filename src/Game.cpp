@@ -20,10 +20,9 @@
 #include "include/Game.h"
 #include "include/Log.h"
 #include "include/ObjectParams.h"
+#include "include/SceneManager.h"
 #include "include/TextureManager.h"
 
-#include "include/Player.h"
-#include "include/Enemy.h"
 
 
 MM::Game * MM::Game::s_pInstance = nullptr;
@@ -32,7 +31,7 @@ MM::Game * MM::Game::s_pInstance = nullptr;
 const float screenWidth = 800;
 const float screenHeight = 600;
 
-bool MM::Game::init(std::string title){
+bool MM::Game::Init(std::string title){
 
     Init_Log();
     SetTraceLogLevel(LOG_ERROR);
@@ -45,13 +44,15 @@ bool MM::Game::init(std::string title){
     /// Taste zum beenden des Programms festlegen, muss nach dem erstellen des Fensters passieren
     SetExitKey(KEY_END);
 
+    //std::string ff = MULLEMAUS_DATA_DIR
+    LOG_D ("DIR: {}", MULLEMAUS_DATA_DIR);
     if (IsWindowReady()){
         LOG_D("Fenster ({} x {}) wurde erstellt", screenWidth, screenHeight);
-        m_bRunning = true;
+        m_Running = true;
     }
     else{
         LOG_E("Fenster ({} x {}) konnte nicht erstellt werden", screenWidth, screenHeight);
-        m_bRunning = false;
+        m_Running = false;
     }
 
   ///Zum Vollbild wechseln
@@ -66,35 +67,25 @@ bool MM::Game::init(std::string title){
     //
     ///////////////////////////////////////////////////////////////////////////
 
-    TextureManager::Instance()->Load("data/animate-alpha.png", "rider");
-
-    m_objects.push_back(new Player(new ObjectParams(20,80, 128,82, "rider")));
-    m_objects.push_back(new Enemy(new ObjectParams(20, 80, 128,82,"rider")));
-
-    m_numFrames = 0;
-
     ///////////////////////////////////////////////////////////////////////////
     //
     //  Test Code ende
     //
     ///////////////////////////////////////////////////////////////////////////
 
-    return m_bRunning;
+    return m_Running;
 }
 
-void MM::Game::render(){
+void MM::Game::Render(){
     BeginDrawing();
     ClearBackground(WHITE);
-    DrawText("Mullemaus Engine Demo", 20, 20, 30, RED);
 
-    for (std::vector<BaseObject*>::size_type i= 0; i != m_objects.size(); i++ ){
-        m_objects[i]->Draw();
-    }
+    MM::SceneManager::Instance()->Render();
 
     EndDrawing();
 }
 
-void MM::Game::clean(){
+void MM::Game::Clean(){
     LOG_I("Fahre Mullemaus Engine runter.");
     CloseWindow();
     MM::Shutdown_Log();
@@ -105,23 +96,19 @@ MM::Game::Game(){
 
 MM::Game::~Game(){
     MM::TextureManager::Instance()->Clear();
-    clean();
+    Clean();
 }
 
-bool MM::Game::running(){
-    return m_bRunning;
+bool MM::Game::Running(){
+    return m_Running;
 }
 
-void MM::Game::handleEvents(){
+void MM::Game::HandleEvents(){
 
     if (WindowShouldClose())
-        m_bRunning = false;
+        m_Running = false;
 }
 
-void MM::Game::update(){
-
-
-    for (std::vector<BaseObject*>::size_type i= 0; i != m_objects.size(); i++ ){
-        m_objects[i]->Update();
-    }
+void MM::Game::Update(){
+    MM::SceneManager::Instance()->Update();
 }

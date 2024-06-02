@@ -53,9 +53,9 @@ namespace MM {
         // #define LOG_I(...)     SPDLOG_INFO(__VA_ARGS__)
 
     #else
-        #define LOG_T (...)     (void)0
-        #define LOG_D (...)     (void)0
-        #define LOG_I (...)      (void)0
+        #define LOG_T (...)    // (void)0
+        #define LOG_D (...)    // (void)0
+        #define LOG_I (...)    //  (void)0
     #endif
 
     #define LOG_I(...)     SPDLOG_INFO(__VA_ARGS__)

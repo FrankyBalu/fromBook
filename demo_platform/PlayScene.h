@@ -12,55 +12,36 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GmenuNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __GAME__
-#define __GAME__
+#ifndef __PLAYSCENE
+#define __PLAYSCENE
 
-#include <string>
+#include "../src/include/BaseScene.h"
+#include "../src/include/GraphicalBaseObject.h"
 #include <vector>
-#include "BaseObject.h"
 
 namespace MM {
 
-class Game {
-public:
+    class PlayScene : public BaseScene {
+    public:
+        virtual void Update();
+        virtual void Render();
 
-    static Game* Instance(){
-        if(s_pInstance == nullptr){
-            s_pInstance = new Game();
-        }
-        return s_pInstance;
-    }
+        virtual bool OnEnter();
+        virtual bool OnExit();
 
-    ~Game();
+        virtual std::string GetID() const {return s_ID;}
 
-    bool Init(std::string title);
+    private:
 
-    void Render();
-    void Update();
-    void HandleEvents();
-    void Clean();
+        std::vector<BaseObject*> m_playerObjects;
 
-    bool Running();
-
-    float GetWidth(){return 800;}
-    float GetHeight() {return 600;}
-
-    void Shutdown(){m_Running = false;}
-private:
-
-    static Game* s_pInstance;
-
-    bool m_Running;
-
-    Game();
-
-};
-
+        static const std::string s_ID;
+    };
 } //namespace MM
 
-#endif // __GAME__
+#endif //__PLAYSCENE

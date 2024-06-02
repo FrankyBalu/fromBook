@@ -17,34 +17,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "include/Player.h"
-#include "include/ObjectParams.h"
-#include "include/GraphicalObject.h"
-#include "include/InputManager.h"
+#ifndef __GRAPHICALBASEOBJECT
+#define __GRAPHICALBASEOBJECT
 
-MM::Player::Player(const ObjectParams *param) : GrapcicalObject(param){
+#include "BaseObject.h"
+#include "ObjectParams.h"
+#include "Vector2D.h"
 
-}
+namespace MM {
 
-void MM::Player::Draw(){
-    GrapcicalObject::Draw();
-}
+class GraphicalBaseObject : public BaseObject {
+public:
 
-void MM::Player::Update(){
-    if (IM::Instance()->IsKeyDown(KEY_RIGHT))
-        m_position.x += 2;
-    if (IM::Instance()->IsKeyDown(KEY_LEFT))
-        m_position.x -= 2;
-    if (IM::Instance()->IsKeyDown(KEY_UP))
-        m_position.y -= 2;
-    if (IM::Instance()->IsKeyDown(KEY_DOWN))
-        m_position.y += 2;
-}
+    GraphicalBaseObject(const ObjectParams *param);
 
-void MM::Player::Clean(){
+    virtual void Draw();
+    virtual void Update();
+    virtual void Input();
+    virtual void Clean();
 
-}
+protected:
 
-void MM::Player::Input(){
+    Vector2D m_position;
+    Vector2D m_velocity;
+    Vector2D m_acceleration;
+    float m_width;
+    float m_height;
 
-}
+    int m_currentFrame;
+    int m_currentRow;
+
+    std::string m_textureID;
+};
+
+} // namespace MM
+
+#endif //__GRAPHICALBASEOBJECT

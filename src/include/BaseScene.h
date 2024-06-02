@@ -17,22 +17,26 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef __BASESCENE
+#define __BASESCENE
 
-#include "include/Game.h"
+#include <string>
 
-MM::Game *g_game;
+namespace MM {
 
-int main (){
-    g_game = MM::Game::Instance();
+    class BaseScene {
+    public:
+        virtual void Update() = 0;
+        virtual void Render() = 0;
 
-    g_game->init("Mullemaus demo");
+        virtual bool OnEnter() = 0;
+        virtual bool OnExit() = 0;
 
-    while(g_game->running()){
-        g_game->handleEvents();
-        g_game->update();
-        g_game->render();
-    }
-    g_game->clean();
-    return 0;
+        virtual std::string GetID() const = 0;
 
-}
+        BaseScene(){}
+        virtual ~BaseScene(){}
+    };
+} //namespace MM
+
+#endif //__BASESCENE

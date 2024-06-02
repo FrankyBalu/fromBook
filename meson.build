@@ -28,6 +28,6 @@ summary('Optimization', get_option('optimization'), section: 'Build')
 
 
 subdir ('src')
-#subdir ('data')
+subdir ('demo_platform')
 
 

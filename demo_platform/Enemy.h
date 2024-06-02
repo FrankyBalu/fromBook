@@ -17,39 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __GRAPHICALOBJECT
-#define __GRAPHICALOBJECT
+#ifndef __ENEMY
+#define __ENEMY
 
-#include "BaseObject.h"
-#include "ObjectParams.h"
-#include "Vector2D.h"
+#include "../src/include/GraphicalObject.h"
+#include "../src/include/ObjectParams.h"
 
 namespace MM {
 
-class GrapcicalObject : public BaseObject {
-public:
+    class Enemy : public GraphicalBaseObject {
+    public:
+        Enemy(const ObjectParams *param);
+         virtual void Draw();
+         virtual void Update();
+         virtual void Input();
+         virtual void Clean();
+    };
 
-    GrapcicalObject(const ObjectParams *param);
+} //namespace MM
 
-    virtual void Draw();
-    virtual void Update();
-    virtual void Input();
-    virtual void Clean();
-
-protected:
-
-    Vector2D m_position;
-    Vector2D m_velocity;
-    Vector2D m_acceleration;
-    float m_width;
-    float m_height;
-
-    int m_currentFrame;
-    int m_currentRow;
-
-    std::string m_textureID;
-};
-
-} // namespace MM
-
-#endif //__GRAPHICALOBJECT
+#endif //__ENEMY

@@ -1,31 +1,25 @@
 MM_SOURCES = files (
     'Game.cpp',
-    'GraphicalObject.cpp',
+    'GraphicalBaseObject.cpp',
     'Log.cpp',
     'TextureManager.cpp',
     'InputManager.cpp',
-    #nur zum testen
-    'Player.cpp',
-    'include/Player.h',
-    'Enemy.cpp',
-    'include/Enemy.h'
+    'SceneManager.cpp',
 )
 
 MM_HEADERS = files (
     'include/BaseObject.h',
     'include/Game.h',
-    'include/GraphicalObject.h',
+    'include/GraphicalBaseObject.h',
     'include/Log.h',
     'include/ObjectParams.h',
     'include/TextureManager.h',
     'include/Vector2D.h',
-    'include/InputManager.h'
+    'include/InputManager.h',
+    'include/SceneManager.h'
 )
 
-ERIK_SOURCES = files (
-    'main.cpp',
 
-)
 
 
 build_args = [
@@ -34,13 +28,13 @@ build_args = [
 
 if get_option ('buildtype') == 'debug'
     build_args += [
-        '-DMULLEMAUS_DATA_DIR=../data/',
+        '-DMULLEMAUS_DATA_DIR="' + meson.source_root() + '/data/"',
         '-DMULLEMAUS_VERSION=' + meson.project_version(),
         '-DDEBUG'
     ]
 else
     build_args += [
-        '-DMULLEMAUS_DATA_DIR=../data/',
+        '-DMULLEMAUS_DATA_DIR=\"' + meson.source_root() + '/data/\"', #fixme: daten dir auf installationsverzeichnis setzen
         '-DMULLEMAUS_VERSION=' + meson.project_version(),
     ]
 endif
@@ -52,11 +46,4 @@ Mullemaus = shared_library (
     install : true,
     cpp_args: build_args,
     dependencies: PROJECT_DEP
-    )
-
-Erik = executable (
-    'Erik',
-    ERIK_SOURCES,
-    dependencies: PROJECT_DEP,
-    link_with: [ Mullemaus ]
     )

@@ -133,7 +133,8 @@ bool MM::TextureManager::DrawEx(const std::string& id, Rectangle src, Rectangle 
     }
     ///FIXME: FLIP wird noch ignoriert
     ///   Flip durch negative werte für w/h im srcRect
-    DrawTexturePro(m_textureMap[id], src, dest, Vector2{0.0f,0.0f}, rotate, WHITE);///FIXME Farbe selbst definieren
+    DrawTexturePro(m_textureMap[id], src, dest, Vector2{3.0f,0.0f}, rotate,
+WHITE);///FIXME Farbe selbst definieren
     return true;
 }
 

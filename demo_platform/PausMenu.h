@@ -17,50 +17,35 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __GAME__
-#define __GAME__
+#ifndef __PAUSESCENE
+#define __PAUSESCENE
 
-#include <string>
-#include <vector>
-#include "BaseObject.h"
+#include "../src/include/BaseScene.h"
+#include "raylib.h"
 
 namespace MM {
 
-class Game {
-public:
+    class PausMenu : public BaseScene {
+    public:
+        virtual void Update();
+        virtual void Render();
 
-    static Game* Instance(){
-        if(s_pInstance == nullptr){
-            s_pInstance = new Game();
-        }
-        return s_pInstance;
-    }
+        virtual bool OnEnter();
+        virtual bool OnExit();
 
-    ~Game();
+        virtual std::string GetID() const {return s_ID;}
 
-    bool Init(std::string title);
+    private:
 
-    void Render();
-    void Update();
-    void HandleEvents();
-    void Clean();
+        static const std::string s_ID;
 
-    bool Running();
+        Rectangle m_LablePausMenu;
+        Rectangle m_ButtonResume;
+        Rectangle m_ButtonMainMenu;
 
-    float GetWidth(){return 800;}
-    float GetHeight() {return 600;}
 
-    void Shutdown(){m_Running = false;}
-private:
-
-    static Game* s_pInstance;
-
-    bool m_Running;
-
-    Game();
-
-};
-
+        int m_ActivButton;
+    };
 } //namespace MM
 
-#endif // __GAME__
+#endif //__PAUSESCENE

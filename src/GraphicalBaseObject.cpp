@@ -17,24 +17,31 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __PLAYER
-#define __PLAYER
+#include "include/GraphicalBaseObject.h"
+#include "include/BaseObject.h"
+#include "include/ObjectParams.h"
+#include "include/TextureManager.h"
 
-#include "GraphicalObject.h"
-#include "ObjectParams.h"
 
-namespace MM {
+MM::GraphicalBaseObject::GraphicalBaseObject(const ObjectParams *params) :BaseObject(params), m_position(params->getX(), params->getY()), m_velocity(0,0), m_acceleration(0,0), m_width(params->getWidth()), m_height(params->getHeight()), m_currentFrame(1), m_currentRow(1),m_textureID(params->getTextureID()){
 
-    class Player : public GrapcicalObject {
-    public:
-        Player(const ObjectParams *param);
+}
 
-         virtual void Draw();
-         virtual void Update();
-         virtual void Input();
-         virtual void Clean();
-    };
 
-} //namespace MM
+void MM::GraphicalBaseObject::Draw(){
+    TextureManager::Instance()->DrawFrame(m_textureID, m_position.x, m_position.y, m_width, m_height, m_currentFrame, m_currentRow);
+}
 
-#endif //__PLAYER
+void MM::GraphicalBaseObject::Update(){
+    m_velocity += m_acceleration;
+    m_position += m_velocity;
+
+}
+
+void MM::GraphicalBaseObject::Clean(){
+
+}
+
+void MM::GraphicalBaseObject::Input(){
+
+}

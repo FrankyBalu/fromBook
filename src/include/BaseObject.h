@@ -42,4 +42,4 @@ protected:
 
 } //namespace MM
 
-#endif //__DEFAULTOBJECT
+#endif //__BASEOBJECT

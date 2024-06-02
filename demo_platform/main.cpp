@@ -17,28 +17,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "include/Enemy.h"
-#include "include/ObjectParams.h"
-#include "include/GraphicalObject.h"
-#include <raylib.h>
+
+#include "../src/include/Game.h"
+#include "../src/include/SceneManager.h"
+#include "MenuScene.h"
+#include "PlayScene.h"
 
 
-MM::Enemy::Enemy(const MM::ObjectParams *param) : GrapcicalObject(param){
+MM::Game *g_game;
 
-}
+int main (){
+    g_game = MM::Game::Instance();
 
-void MM::Enemy::Draw(){
-    GrapcicalObject::Draw();
-}
+    g_game->Init("Mullemaus demo");
 
-void MM::Enemy::Update(){
+    MM::SceneManager::Instance()->Push(new MM::MenuScene());
 
-}
 
-void MM::Enemy::Clean(){
-
-}
-
-void MM::Enemy::Input(){
+    while(g_game->Running()){
+        g_game->HandleEvents();
+        g_game->Update();
+        g_game->Render();
+    }
+    g_game->Clean();
+    return 0;
 
 }

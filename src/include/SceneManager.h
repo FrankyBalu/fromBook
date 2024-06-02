@@ -17,50 +17,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __GAME__
-#define __GAME__
+#ifndef __SCENEMANAGER
+#define __SCENEMANAGER
 
-#include <string>
+#include "BaseScene.h"
 #include <vector>
-#include "BaseObject.h"
 
-namespace MM {
+namespace MM{
 
-class Game {
-public:
+    class SceneManager {
+    public:
 
-    static Game* Instance(){
-        if(s_pInstance == nullptr){
-            s_pInstance = new Game();
+        static SceneManager* Instance(){
+            if (s_pInstance == nullptr){
+                s_pInstance = new SceneManager();
+            }
+            return s_pInstance;
         }
-        return s_pInstance;
-    }
+        void Push (BaseScene *scene);
+        void Change (BaseScene *scene);
+        void Pop ();
 
-    ~Game();
+        void Update();
+        void Render();
 
-    bool Init(std::string title);
+    private:
 
-    void Render();
-    void Update();
-    void HandleEvents();
-    void Clean();
+        SceneManager();
+        virtual ~SceneManager(){}
 
-    bool Running();
+        static SceneManager *s_pInstance;
 
-    float GetWidth(){return 800;}
-    float GetHeight() {return 600;}
+        std::vector<BaseScene*> m_Scenes;
+    };
 
-    void Shutdown(){m_Running = false;}
-private:
+}//namespace MM
 
-    static Game* s_pInstance;
-
-    bool m_Running;
-
-    Game();
-
-};
-
-} //namespace MM
-
-#endif // __GAME__
+#endif //__SCENEMANAGER

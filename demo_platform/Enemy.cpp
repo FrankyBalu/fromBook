@@ -17,50 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __GAME__
-#define __GAME__
+#include "Enemy.h"
+#include "../src/include/ObjectParams.h"
+#include "../src/include/GraphicalObject.h"
+#include <raylib.h>
 
-#include <string>
-#include <vector>
-#include "BaseObject.h"
 
-namespace MM {
+MM::Enemy::Enemy(const MM::ObjectParams *param) : GraphicalBaseObject(param){
 
-class Game {
-public:
+}
 
-    static Game* Instance(){
-        if(s_pInstance == nullptr){
-            s_pInstance = new Game();
-        }
-        return s_pInstance;
-    }
+void MM::Enemy::Draw(){
+    GraphicalBaseObject::Draw();
+}
 
-    ~Game();
+void MM::Enemy::Update(){
 
-    bool Init(std::string title);
+}
 
-    void Render();
-    void Update();
-    void HandleEvents();
-    void Clean();
+void MM::Enemy::Clean(){
 
-    bool Running();
+}
 
-    float GetWidth(){return 800;}
-    float GetHeight() {return 600;}
+void MM::Enemy::Input(){
 
-    void Shutdown(){m_Running = false;}
-private:
-
-    static Game* s_pInstance;
-
-    bool m_Running;
-
-    Game();
-
-};
-
-} //namespace MM
-
-#endif // __GAME__
+}
